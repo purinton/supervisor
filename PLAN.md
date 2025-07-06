@@ -83,7 +83,6 @@ Design and build a web-based system management GUI leveraging MCP-first architec
 ## Contact
 
 Primary: Russell Purinton (russell.purinton@gmail.com)
-Secondary: Marc (marc.purinton@gmail.com)
 
 ---
 
