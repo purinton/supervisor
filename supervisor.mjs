@@ -36,14 +36,15 @@ try {
         name, version, port, token, toolsDir, log, authCallback
     });
 
+    app._router.stack = app._router.stack.filter(
+        layer => !(layer.route && layer.route.path === '/' && layer.route.methods.get)
+    );
 
     const publicDir = path(import.meta, 'public');
-    // Serve index.html for GET /
     app.get('/', (req, res) => {
         const indexPath = path(publicDir, 'index.html');
         if (fs.existsSync(indexPath) && fs.statSync(indexPath).isFile()) {
-            const mimeType = mime.lookup(indexPath) || 'text/html';
-            res.setHeader('Content-Type', mimeType);
+            res.setHeader('Content-Type', 'text/html');
             res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
             res.sendFile(indexPath);
         } else {
