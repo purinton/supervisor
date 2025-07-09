@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import 'dotenv/config';
-import { path as pathMod } from 'path';
+import pathMod from 'path';
 import { mcpServer } from '@purinton/mcp-server';
 import { fs, log, path, registerHandlers, registerSignals } from '@purinton/common';
 import mime from 'mime-types';
