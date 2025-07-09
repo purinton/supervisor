@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import 'dotenv/config';
+import { path as pathMod } from 'path';
 import { mcpServer } from '@purinton/mcp-server';
 import { fs, log, path, registerHandlers, registerSignals } from '@purinton/common';
 import mime from 'mime-types';
@@ -41,7 +42,7 @@ try {
         if (!['GET', 'HEAD'].includes(req.method)) return next();
         let reqPath = req.path;
         if (reqPath === '/') reqPath = '/index.html';
-        const safePath = path.normalize(reqPath).replace(/^([/\\])+/, '');
+        const safePath = pathMod.normalize(reqPath).replace(/^([/\\])+/, '');
         const filePath = path(publicDir, ...safePath.split(/[\\/]/));
         if (!filePath.startsWith(publicDir)) {
             res.status(403).send('Forbidden');
