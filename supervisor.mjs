@@ -76,6 +76,6 @@ try {
     registerSignals({ shutdownHook: () => transport.close() });
     log.info('Ready', { name, version, port });
 } catch (err) {
-    log.error('Failed to start MCP server', { error: err });
+    log.error('Failed to start MCP server', { error: JSON.stringify(err) });
     process.exit(1);
 }
