@@ -3,6 +3,7 @@
 import 'dotenv/config';
 import { mcpServer } from '@purinton/mcp-server';
 import { fs, log, path, registerHandlers, registerSignals } from '@purinton/common';
+import mime from 'mime-types';
 
 registerHandlers({ log });
 registerSignals({ log });
@@ -34,7 +35,27 @@ try {
         name, version, port, token, toolsDir, log, authCallback
     });
 
-    app.get('/hello', (req, res) => res.send('Hello World!'));
+
+    const publicDir = path(import.meta, 'public');
+    app.use((req, res, next) => {
+        if (!['GET', 'HEAD'].includes(req.method)) return next();
+        let reqPath = req.path;
+        if (reqPath === '/') reqPath = '/index.html';
+        const safePath = path.normalize(reqPath).replace(/^([/\\])+/, '');
+        const filePath = path(publicDir, ...safePath.split(/[\\/]/));
+        if (!filePath.startsWith(publicDir)) {
+            res.status(403).send('Forbidden');
+            return;
+        }
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+            const mimeType = mime.lookup(filePath) || 'application/octet-stream';
+            res.setHeader('Content-Type', mimeType);
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+            res.sendFile(filePath);
+        } else {
+            next();
+        }
+    });
 
     registerSignals({ shutdownHook: () => httpInstance.close() });
     registerSignals({ shutdownHook: () => transport.close() });
