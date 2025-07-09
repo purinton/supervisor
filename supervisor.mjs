@@ -30,9 +30,12 @@ const authCallback = (bearerToken) => {
 };
 
 try {
-    const { httpInstance, transport } = await mcpServer({
+    const { app, httpInstance, transport } = await mcpServer({
         name, version, port, token, toolsDir, log, authCallback
     });
+
+    app.get('/hello', (req, res) => res.send('Hello World!'));
+
     registerSignals({ shutdownHook: () => httpInstance.close() });
     registerSignals({ shutdownHook: () => transport.close() });
     log.info('Ready', { name, version, port });
