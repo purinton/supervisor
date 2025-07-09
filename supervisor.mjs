@@ -38,11 +38,24 @@ try {
 
 
     const publicDir = path(import.meta, 'public');
+    // Serve index.html for GET /
+    app.get('/', (req, res) => {
+        const indexPath = path(publicDir, 'index.html');
+        if (fs.existsSync(indexPath) && fs.statSync(indexPath).isFile()) {
+            const mimeType = mime.lookup(indexPath) || 'text/html';
+            res.setHeader('Content-Type', mimeType);
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+            res.sendFile(indexPath);
+        } else {
+            res.status(404).send('index.html not found');
+        }
+    });
+
+    // Serve all other static files in public
     app.use((req, res, next) => {
         if (!['GET', 'HEAD'].includes(req.method)) return next();
-        let reqPath = req.path;
-        if (reqPath === '/') reqPath = '/index.html';
-        const safePath = pathMod.normalize(reqPath).replace(/^([/\\])+/, '');
+        const safePath = pathMod.normalize(req.path).replace(/^([/\\])+/, '');
+        if (!safePath) return next();
         const filePath = path(publicDir, ...safePath.split(/[\\/]/));
         if (!filePath.startsWith(publicDir)) {
             res.status(403).send('Forbidden');
