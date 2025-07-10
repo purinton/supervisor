@@ -14,8 +14,8 @@ export default {
     },
     output: {
         path: publicDir,
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].chunk.js',
+        filename: '[name].bundle.mjs',
+        chunkFilename: '[name].chunk.mjs',
     },
     module: {
         rules: [
