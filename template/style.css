@@ -1,0 +1,144 @@
+/* Dashboard layout */
+#dashboard {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+}
+
+/* Hosts, Services, Metrics panels */
+#hosts-panel, #services-panel, #metrics-panel {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px #0003;
+}
+#hosts-panel {
+    min-width: 180px;
+    max-width: 220px;
+    flex: 1 1 180px;
+}
+#services-panel {
+    flex: 2 1 400px;
+    min-width: 350px;
+}
+#metrics-panel {
+    min-width: 180px;
+    max-width: 220px;
+    flex: 1 1 180px;
+}
+
+/* Hosts list */
+#hosts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.host {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    justify-content: space-between;
+}
+.host:hover {
+    background-color: #2c2c2c;
+}
+.host-name {
+    font-weight: bold;
+}
+.host-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+}
+.host-status.online {
+    background-color: #4caf50;
+}
+.host-status.offline {
+    background-color: #f44336;
+}
+
+/* Services table */
+#services-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    background: #23272e;
+}
+#services-table th, #services-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+#services-table th {
+    background: #1a1d22;
+    color: #b0b8c1;
+}
+#services-table tr {
+    border-bottom: 1px solid #333;
+}
+#services-table tr:last-child {
+    border-bottom: none;
+}
+.service-status {
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.service-status.running {
+    background-color: #4caf50;
+}
+.service-status.stopped {
+    background-color: #f44336;
+}
+
+/* Action buttons */
+.action-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.action-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Metrics panel */
+#metrics-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#metrics-panel li {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+}
+.metric-value {
+    font-weight: bold;
+}
+.updates-available {
+    color: #ff9800;
+}
+
+/* Responsive design */
+@media (max-width: 1100px) {
+    #dashboard {
+        flex-direction: column;
+        gap: 16px;
+    }
+    #hosts-panel, #services-panel, #metrics-panel {
+        max-width: 100%;
+        min-width: 0;
+    }
+}

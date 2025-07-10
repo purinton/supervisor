@@ -5,28 +5,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        /* Minimal dark mode to prevent flash of white */
         body {
             background-color: #121212;
             color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        #app {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
         }
     </style>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Welcome to Supervisor</h1>
-    <div id="app">Loading...</div>
+    <h1>Supervisor Dashboard</h1>
+    <div id="dashboard">
+        <div id="hosts-panel">
+            <h2>Hosts</h2>
+            <ul id="hosts-list">
+                <li class="host selected">
+                    <span class="host-name">app1</span>
+                    <span class="host-status online">●</span>
+                </li>
+                <li class="host">
+                    <span class="host-name">app2</span>
+                    <span class="host-status offline">●</span>
+                </li>
+                <li class="host">
+                    <span class="host-name">dev</span>
+                    <span class="host-status online">●</span>
+                </li>
+            </ul>
+        </div>
+        <div id="services-panel">
+            <h2>systemd Services on <span id="selected-host">app1</span></h2>
+            <table id="services-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>CPU</th>
+                        <th>Memory</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>nginx.service</td>
+                        <td><span class="service-status running">Running</span></td>
+                        <td>0.3%</td>
+                        <td>24 MB</td>
+                        <td>
+                            <button class="action-btn">Stop</button>
+                            <button class="action-btn">Restart</button>
+                            <button class="action-btn">Logs</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>mysql.service</td>
+                        <td><span class="service-status stopped">Stopped</span></td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>
+                            <button class="action-btn">Start</button>
+                            <button class="action-btn" disabled>Restart</button>
+                            <button class="action-btn">Logs</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>supervisor.service</td>
+                        <td><span class="service-status running">Running</span></td>
+                        <td>0.1%</td>
+                        <td>12 MB</td>
+                        <td>
+                            <button class="action-btn">Stop</button>
+                            <button class="action-btn">Restart</button>
+                            <button class="action-btn">Logs</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="metrics-panel">
+            <h2>Host Metrics</h2>
+            <ul>
+                <li>CPU: <span class="metric-value">7%</span></li>
+                <li>Memory: <span class="metric-value">2.1 GB / 8 GB</span></li>
+                <li>Disk: <span class="metric-value">41% used</span></li>
+                <li>Network: <span class="metric-value">1.2 MB/s</span></li>
+                <li>Updates: <span class="metric-value updates-available">3 available</span></li>
+            </ul>
+        </div>
+    </div>
     <script type="module" src="main.bundle.mjs"></script>
 </body>
 
