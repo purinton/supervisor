@@ -36,10 +36,6 @@ try {
         name, version, port, token, toolsDir, log, authCallback
     });
 
-    app._router.stack = app._router.stack.filter(
-        layer => !(layer.route && layer.route.path === '/' && layer.route.methods.get)
-    );
-
     const publicDir = path(import.meta, 'public');
     app.get('/', (req, res) => {
         const indexPath = path(publicDir, 'index.html');
