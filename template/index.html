@@ -11,89 +11,184 @@
             color: #ffffff;
         }
     </style>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <h1>Supervisor Dashboard</h1>
-    <div id="dashboard">
-        <div id="hosts-panel">
-            <h2>Hosts</h2>
-            <ul id="hosts-list">
-                <li class="host selected">
-                    <span class="host-name">app1</span>
-                    <span class="host-status online">●</span>
-                </li>
-                <li class="host">
-                    <span class="host-name">app2</span>
-                    <span class="host-status offline">●</span>
-                </li>
-                <li class="host">
-                    <span class="host-name">dev</span>
-                    <span class="host-status online">●</span>
-                </li>
-            </ul>
-        </div>
-        <div id="services-panel">
-            <h2>systemd Services on <span id="selected-host">app1</span></h2>
-            <table id="services-table">
-                <thead>
-                    <tr>
-                        <th>Service</th>
-                        <th>Status</th>
-                        <th>CPU</th>
-                        <th>Memory</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>nginx.service</td>
-                        <td><span class="service-status running">Running</span></td>
-                        <td>0.3%</td>
-                        <td>24 MB</td>
-                        <td>
-                            <button class="action-btn">Stop</button>
-                            <button class="action-btn">Restart</button>
-                            <button class="action-btn">Logs</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>mysql.service</td>
-                        <td><span class="service-status stopped">Stopped</span></td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>
-                            <button class="action-btn">Start</button>
-                            <button class="action-btn" disabled>Restart</button>
-                            <button class="action-btn">Logs</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>supervisor.service</td>
-                        <td><span class="service-status running">Running</span></td>
-                        <td>0.1%</td>
-                        <td>12 MB</td>
-                        <td>
-                            <button class="action-btn">Stop</button>
-                            <button class="action-btn">Restart</button>
-                            <button class="action-btn">Logs</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="metrics-panel">
-            <h2>Host Metrics</h2>
-            <ul>
-                <li>CPU: <span class="metric-value">7%</span></li>
-                <li>Memory: <span class="metric-value">2.1 GB / 8 GB</span></li>
-                <li>Disk: <span class="metric-value">41% used</span></li>
-                <li>Network: <span class="metric-value">1.2 MB/s</span></li>
-                <li>Updates: <span class="metric-value updates-available">3 available</span></li>
-            </ul>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-dark bg-secondary px-3">
+        <span class="navbar-brand mb-0 h1">
+            <i class="mdi mdi-server" style="font-size:1.5em;vertical-align:middle;"></i>
+            Supervisor
+        </span>
+        <span class="text-light small">Logged in as: <i class="mdi mdi-account-circle"></i> admin</span>
+    </nav>
+    <div class="container-fluid mt-3">
+        <div class="row" style="min-height:80vh;">
+            <aside class="col-3 col-lg-2 border-end pe-0">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item bg-dark border-0 pb-1">
+                        <span class="fw-bold text-uppercase small">Hosts</span>
+                    </div>
+                    <button class="list-group-item list-group-item-action bg-dark text-light active d-flex align-items-center border-0">
+                        <i class="mdi mdi-desktop-classic me-2 text-success"></i> app1
+                    </button>
+                    <button class="list-group-item list-group-item-action bg-dark text-light d-flex align-items-center border-0">
+                        <i class="mdi mdi-desktop-classic me-2 text-danger"></i> app2
+                    </button>
+                    <button class="list-group-item list-group-item-action bg-dark text-light d-flex align-items-center border-0">
+                        <i class="mdi mdi-desktop-classic me-2 text-success"></i> dev
+                    </button>
+                </div>
+            </aside>
+            <main class="col-9 col-lg-7 px-4">
+                <h4 class="mt-2 mb-3"><i class="mdi mdi-cogs"></i> systemd Services on <span class="text-info">app1</span>
+                </h4>
+                <table class="table table-dark table-hover align-middle mb-4">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>CPU</th>
+                            <th>Memory</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="mdi mdi-web"></i> nginx.service</td>
+                            <td><span class="badge bg-success"><i class="mdi mdi-play-circle"></i> Running</span></td>
+                            <td>0.3%</td>
+                            <td>24 MB</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger me-1"><i class="mdi mdi-stop"></i></button>
+                                <button class="btn btn-sm btn-warning me-1"><i class="mdi mdi-restart"></i></button>
+                                <button class="btn btn-sm btn-secondary"><i class="mdi mdi-file-document-outline"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdi mdi-database"></i> mysql.service</td>
+                            <td><span class="badge bg-danger"><i class="mdi mdi-stop-circle"></i> Stopped</span></td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>
+                                <button class="btn btn-sm btn-success me-1"><i class="mdi mdi-play"></i></button>
+                                <button class="btn btn-sm btn-warning me-1" disabled><i class="mdi mdi-restart"></i></button>
+                                <button class="btn btn-sm btn-secondary"><i class="mdi mdi-file-document-outline"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdi mdi-application-cog"></i> supervisor.service</td>
+                            <td><span class="badge bg-success"><i class="mdi mdi-play-circle"></i> Running</span></td>
+                            <td>0.1%</td>
+                            <td>12 MB</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger me-1"><i class="mdi mdi-stop"></i></button>
+                                <button class="btn btn-sm btn-warning me-1"><i class="mdi mdi-restart"></i></button>
+                                <button class="btn btn-sm btn-secondary"><i class="mdi mdi-file-document-outline"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="accordion" id="serviceDetails">
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header" id="headingGeneral">
+                            <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">
+                                <i class="mdi mdi-information-outline me-2"></i> General Properties
+                            </button>
+                        </h2>
+                        <div id="collapseGeneral" class="accordion-collapse collapse" aria-labelledby="headingGeneral"
+                            data-bs-parent="#serviceDetails">
+                            <div class="accordion-body">
+                                <div class="row mb-2">
+                                    <div class="col-4 text-secondary">Name:</div>
+                                    <div class="col-8">app1</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 text-secondary">Description:</div>
+                                    <div class="col-8">Application Server 1</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 text-secondary">OS:</div>
+                                    <div class="col-8">CentOS Stream release 10</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 text-secondary">Uptime:</div>
+                                    <div class="col-8">2 days 23 hours 13 minutes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header" id="headingBoot">
+                            <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseBoot" aria-expanded="false" aria-controls="collapseBoot">
+                                <i class="mdi mdi-rocket-launch me-2"></i> Boot Options
+                            </button>
+                        </h2>
+                        <div id="collapseBoot" class="accordion-collapse collapse" aria-labelledby="headingBoot"
+                            data-bs-parent="#serviceDetails">
+                            <div class="accordion-body">
+                                <span class="text-secondary">(Boot options details...)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header" id="headingCPUs">
+                            <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseCPUs" aria-expanded="false" aria-controls="collapseCPUs">
+                                <i class="mdi mdi-cpu-64-bit me-2"></i> CPUs
+                            </button>
+                        </h2>
+                        <div id="collapseCPUs" class="accordion-collapse collapse" aria-labelledby="headingCPUs"
+                            data-bs-parent="#serviceDetails">
+                            <div class="accordion-body">
+                                <span class="text-secondary">(CPU details...)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header" id="headingCache">
+                            <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseCache" aria-expanded="false" aria-controls="collapseCache">
+                                <i class="mdi mdi-memory me-2"></i> Read Caching
+                            </button>
+                        </h2>
+                        <div id="collapseCache" class="accordion-collapse collapse" aria-labelledby="headingCache"
+                            data-bs-parent="#serviceDetails">
+                            <div class="accordion-body">
+                                <span class="text-secondary">(Read caching details...)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <aside class="col-12 col-lg-3 mt-4 mt-lg-0">
+                <div class="card bg-dark border-secondary mb-3">
+                    <div class="card-header bg-secondary text-light">
+                        <i class="mdi mdi-chart-bar"></i> Host Metrics
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark text-light">CPU: <span class="fw-bold text-success">7%</span>
+                        </li>
+                        <li class="list-group-item bg-dark text-light">Memory: <span class="fw-bold text-info">2.1 GB / 8 GB
+                            </span></li>
+                        <li class="list-group-item bg-dark text-light">Disk: <span class="fw-bold text-warning">41% used
+                            </span></li>
+                        <li class="list-group-item bg-dark text-light">Network: <span class="fw-bold text-primary">1.2 MB/s
+                            </span></li>
+                        <li class="list-group-item bg-dark text-light">Updates: <span class="fw-bold text-warning">3
+                                available</span></li>
+                    </ul>
+                </div>
+            </aside>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="main.bundle.mjs"></script>
 </body>
 
