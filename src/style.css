@@ -1,0 +1,78 @@
+body.bg-dark {
+    background-color: #181c20 !important;
+}
+.navbar.bg-secondary {
+    background: linear-gradient(90deg, #23272e 60%, #2d3748 100%) !important;
+    border-bottom: 1px solid #222;
+}
+.list-group-item.active {
+    background: #2d3748 !important;
+    color: #fff !important;
+    border-left: 4px solid #4caf50;
+}
+.list-group-item {
+    border: none;
+    border-radius: 0;
+}
+.table-dark {
+    background-color: #23272e;
+}
+.table-dark th, .table-dark td {
+    border-color: #333;
+}
+.accordion-button.bg-dark {
+    background: #23272e;
+    color: #fff;
+}
+.accordion-button:not(.collapsed) {
+    color: #4caf50;
+    background: #23272e;
+}
+.accordion-item {
+    border: 1px solid #333;
+}
+.card.bg-dark {
+    background: #23272e;
+    border-radius: 8px;
+}
+.card-header.bg-secondary {
+    background: #23272e !important;
+    border-bottom: 1px solid #333;
+}
+.fw-bold.text-success {
+    color: #4caf50 !important;
+}
+.fw-bold.text-info {
+    color: #00bcd4 !important;
+}
+.fw-bold.text-warning {
+    color: #ff9800 !important;
+}
+.fw-bold.text-primary {
+    color: #2196f3 !important;
+}
+.badge.bg-success, .badge.bg-danger {
+    font-size: 1em;
+    padding: 0.5em 0.8em;
+    border-radius: 6px;
+}
+.btn {
+    box-shadow: none !important;
+}
+
+/* Responsive design */
+@media (max-width: 1100px) {
+    /* No dashboard/hosts-panel/services-panel/metrics-panel in use */
+}
+
+/* Responsive tweaks */
+@media (max-width: 991px) {
+    aside.col-3, aside.col-lg-2, aside.col-lg-3 {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    main.col-9, main.col-lg-7 {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
